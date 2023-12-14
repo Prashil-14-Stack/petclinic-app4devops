@@ -32,7 +32,7 @@
         }
         stage('Log into Nexus Repo') {
             steps {
-                sh $NEXUS_PASSWORD | docker login --username $NEXUS_USER --password-stdin $NEXUS_REPO
+                sh 'docker login --username $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_REPO'
             }
         }
         stage('Push to Nexus Repo') {
