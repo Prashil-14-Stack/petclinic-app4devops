@@ -3,7 +3,7 @@ pipeline {
     environment {
         NEXUS_USER = credentials('nexus-username')
         NEXUS_PASSWORD = credentials('nexus-password')
-        NEXUS_REPO = credentials('nexus-repo')
+        NEXUS_REPO = credentials('nexus-url')
     }
     stages {
         stage('Code Analysis') {
@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy to stage') {
             steps {
                 sshagent (['ansible-key']) {
-                      sh 'ssh -t -t ec2-user@13.41.163.248 -o StrictHostKeyChecking=no "cd /etc/ansible && ansible-playbook -i /etc/ansible/stage-hosts /etc/ansible/stage-playbook.yml"'
+                      sh 'ssh -t -t ec2-user@54.220.2.102 -o StrictHostKeyChecking=no "cd /etc/ansible && ansible-playbook stage-env-playbook.yml"'
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline {
         stage('Deploy to prod'){
             steps{
                 sshagent(['ansible-key']) {
-                  sh 'ssh -t -t ec2-user@13.41.163.248 -o strictHostKeyChecking=no "cd /etc/ansible && ansible-playbook -i /etc/ansible/prod-hosts /etc/ansible/prod-playbook.yml"'
+                   sh 'ssh -t -t ec2-user@54.220.2.102 -o StrictHostKeyChecking=no "cd /etc/ansible && ansible-playbook prod-env-playbook.yml"'
                 }
             }
         }
