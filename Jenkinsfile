@@ -9,7 +9,7 @@
         stage('Code Analysis') {
             steps {
                withSonarQubeEnv('sonarqube') {
-                  sh "mvn sonar:sonar"
+                  sh 'mvn sonar:sonar'
                }
             }
         }
