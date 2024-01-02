@@ -22,7 +22,7 @@
         }
         stage('Build Artifact') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn clean install'
             }
         }
         stage('Build Docker Image') {
